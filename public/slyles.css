@@ -1,35 +1,32 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+// Change the image when the "Change Image" button is clicked
+document.getElementById('change-image').addEventListener('click', function () {
+  const image = document.getElementById('profile-image');
+  // New image URL
+  const newImageUrl = 'https://i.imgur.com/zI7QALq.jpeg';
+  image.src = newImageUrl;
+});
 
-/* Container Styles */
-.container {
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Header Styles */
-h1 {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Image Styles */
-.profile-photo {
-    width: 200px;
-    height: auto;
-    border-radius: 50%;
-    border: 5px solid #333;
-}
+// Download a file from an API URL when the "Download File" button is clicked
+document.getElementById('download-file').addEventListener('click', function () {
+  // Example API URL for a downloadable file (sample PDF)
+  const fileUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+  
+  fetch(fileUrl)
+    .then(response => response.blob())
+    .then(blob => {
+      // Create a temporary URL for the blob
+      const url = window.URL.createObjectURL(blob);
+      // Create a temporary anchor element
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      // Set the desired file name
+      a.download = 'dummy.pdf';
+      document.body.appendChild(a);
+      // Programmatically click the anchor to trigger the download
+      a.click();
+      // Cleanup the URL object after download
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error downloading file:', error));
+});
