@@ -1,37 +1,53 @@
-document.getElementById("downloadBtn").addEventListener("click", function() {
-    const videoUrl = document.getElementById("videoUrl").value;
-    const statusElement = document.getElementById("status");
+/* Reset default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    if (videoUrl.trim() === "") {
-        statusElement.textContent = "Please enter a valid video URL.";
-        return;
-    }
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  text-align: center;
+  padding: 50px 20px;
+}
 
-    statusElement.textContent = "Processing...";
+/* Header styles */
+h1 {
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
 
-    // Send the URL to the API for downloading
-    fetch("https://nayan-videos-downloader-seven.vercel.app/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ url: videoUrl })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            statusElement.textContent = "Download Started! Please wait.";
-            // Create a link to trigger the download
-            const downloadLink = document.createElement("a");
-            downloadLink.href = data.downloadUrl; // assuming API returns a download URL
-            downloadLink.download = "video.mp4"; // You can customize the file name here
-            downloadLink.click();
-        } else {
-            statusElement.textContent = "Failed to download video. Please try again.";
-        }
-    })
-    .catch(error => {
-        statusElement.textContent = "Error occurred while processing your request.";
-        console.error(error);
-    });
-});
+/* Image styles */
+img {
+  width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Button container */
+.buttons {
+  margin-top: 20px;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+      }
